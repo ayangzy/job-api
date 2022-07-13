@@ -3,7 +3,7 @@ exports.getAlljobs = async(req, res, next) => {
 }
 
 exports.createJob = async(req, res, next) => {
-    res.send('create new job')
+    res.send(req.user)
 }
 
 exports.getJob = async(req, res, next) => {

@@ -7,11 +7,13 @@ const app = express();
 const dbConnect = require('./db/dbConnect');
 const bodyParser = require('body-parser');
 
+const authenticateUser = require('./middleware/authentication');
 
+//routers
 const authRoutes = require('./routes/authRoute');
 const jobRoutes = require('./routes/jobRoute');
 
-
+//error handlers
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
@@ -19,9 +21,9 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 
 app.use(bodyParser.json());
 
-
+//endpoints
 app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1/jobs', jobRoutes)
+app.use('/api/v1/jobs', authenticateUser, jobRoutes)
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
