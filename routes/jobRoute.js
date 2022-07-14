@@ -9,7 +9,7 @@ router
     .post(jobControlelr.createJob)
 
 router
-    .route(':/id')
+    .route('/:id')
     .get(jobControlelr.getJob)
     .patch(jobControlelr.updateJob)
     .delete(jobControlelr.deleteJob)
