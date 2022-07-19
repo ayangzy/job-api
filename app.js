@@ -21,7 +21,7 @@ const authenticateUser = require('./middleware/authentication');
 const authRoutes = require('./routes/authRoute');
 const jobRoutes = require('./routes/jobRoute');
 const uploadRoutes = require('./routes/uploadRoute');
-
+const sendEmailRoute = require('./routes/sendEmailRoute');
 //error handlers
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
@@ -35,6 +35,7 @@ app.use(fileUpload({ useTempFiles: true }));
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/jobs', authenticateUser, jobRoutes);
 app.use('/api/v1/uploads', uploadRoutes);
+app.use('/api/v1/emails', sendEmailRoute);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
