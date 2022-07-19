@@ -7,6 +7,13 @@ const fileUpload = require('express-fileupload');
 
 const dbConnect = require('./db/dbConnect');
 const bodyParser = require('body-parser');
+// USE V2
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
 
 const authenticateUser = require('./middleware/authentication');
 
@@ -22,7 +29,7 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 
 
 app.use(bodyParser.json());
-app.use(fileUpload());
+app.use(fileUpload({ useTempFiles: true }));
 
 //endpoints
 app.use('/api/v1/auth', authRoutes);
