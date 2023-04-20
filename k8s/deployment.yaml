@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: job-service
+spec:
+  selector:
+    app: job-api
+  ports:
+  - protocol: 'TCP'
+    port: 80
+    targetPort: 3000
+  type: NodePort
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: job-api
+spec:
+  selector:
+    matchLabels:
+      app: job-api
+      tier: job-backend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: job-api
+        tier: job-backend
+    spec:
+      containers:
+      - name: job-api
+        image: felixayange/job-api:latest
+        imagePullPolicy: Always
+        resources:
+            limits:
+              cpu: 300m
+              memory: 600Mi
+            requests:
+              cpu: 250m
+              memory: 500Mi
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          periodSeconds: 10
+          initialDelaySeconds: 2
+        ports:
+          - containerPort: 3000
+        
+      volumes:
+        - name: job-volume
+          emptyDir: {}
+            
+        

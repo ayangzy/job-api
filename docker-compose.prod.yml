@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  job_api:
+    container_name: job_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: production
+    environment:
+      - NODE_ENV=production
+    command: node app.js
