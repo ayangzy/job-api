@@ -31,7 +31,7 @@ app.use(bodyParser.json())
 app.use(fileUpload({ useTempFiles: true }))
 
 app.get('/', (req, res) => {
-  res.status(200).send({ message: 'Welcome to job api' })
+  res.status(200).send({ message: 'Welcome to job api!!!' })
 })
 //endpoints
 app.use('/api/v1/auth', authRoutes)
